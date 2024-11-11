@@ -150,11 +150,16 @@ public class TableController : MonoBehaviour
 		{
 			for (int column = 0; column < _occupiedPositions.GetLength(0); column++)
 			{
-				if (_pieces.Count <= 0) break;
+				if (_pieces.Count <= 0)
+				{
+					_occupiedPositions[column, row] = false;
+					break;
+				}
 
 				int index = Random.Range(0, _pieces.Count);
 				_pieces[index].SetPositionOnTable(new(column, row));
 				_pieces[index].transform.localPosition = new Vector3(column * _cellSize, -row * _cellSize, 0f);
+				_occupiedPositions[column, row] = true;
 
 				_pieces.RemoveAt(index);
 			}
